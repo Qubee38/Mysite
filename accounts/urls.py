@@ -1,0 +1,25 @@
+from django.contrib.auth import views as av
+from django.urls import path, include
+from . import views
+from .forms import CustomAuthenticationForm
+
+app_name = 'accounts'
+
+urlpatterns = [
+    # copy from djangp.contrib.auth.urls.py
+    path('login/', views.CustomLoginView.as_view(), name='login'),
+    path('logout/', views.CustomLogoutView.as_view(), name='logout'),
+
+    path('password_change/', av.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', av.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
+    path('password_reset', av.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', av.PasswordResetView.as_view(),
+name='password_reset_done'),
+    path('reset///', av.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', av.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    path('create/', views.UserCreateView.as_view(), name='create'),
+    path('profile/', views.UserProfileview.as_view(), name='profile'),
+    path('change/', views.UserChangeView.as_view(), name='change'),
+]
